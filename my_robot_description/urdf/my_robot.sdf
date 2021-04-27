@@ -1,0 +1,68 @@
+<sdf version='1.7'>
+  <model name='my_robot'>
+    <link name='base_footprint'>
+      <inertial>
+        <pose>0.034125 0 0.04575 0 -0 0</pose>
+        <mass>0.24</mass>
+        <inertia>
+          <ixx>5.625e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>-5.11875e-05</ixz>
+          <iyy>0.000471431</iyy>
+          <iyz>0</iyz>
+          <izz>0.000465806</izz>
+        </inertia>
+      </inertial>
+      <velocity_decay/>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+      <robotNamespace>/my_robot</robotNamespace>
+      <robotParam>/robot_description</robotParam>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+    <plugin name='ground_truth' filename='libgazebo_ros_p3d.so'>
+      <frameName>map</frameName>
+      <topicName>my_robot/odom</topicName>
+      <updateRate>30.0</updateRate>
+      <gaussianNoise>0.0</gaussianNoise>
+      <bodyName>base_footprint</bodyName>
+      <xyzOffset>0 0 -0.01</xyzOffset>
+      <rpyOffset>0 -0 0</rpyOffset>
+    </plugin>
+    <plugin name='differential_drive_controller' filename='libgazebo_ros_diff_drive.so'>
+      <robotNamespace>/</robotNamespace>
+      <alwaysOn>1</alwaysOn>
+      <updateRate>100</updateRate>
+      <leftJoint>left_wheel_hinge</leftJoint>
+      <rightJoint>right_wheel_hinge</rightJoint>
+      <wheelSeparation>0.045</wheelSeparation>
+      <wheelDiameter>0.064</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>my_robot/cmd_vel</commandTopic>
+      <odometryTopic>my_robot/odom</odometryTopic>
+      <odometryFrame>map</odometryFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <legacyMode>0</legacyMode>
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <publishWheelTF>1</publishWheelTF>
+      <publishWheelJointState>1</publishWheelJointState>
+      <wheelAcceleration>5</wheelAcceleration>
+      <wheelTorque>20</wheelTorque>
+      <publishTf>1</publishTf>
+      <odometrySource>encoder</odometrySource>
+    </plugin>
+    <static>0</static>
+    <plugin name='imu_plugin' filename='libgazebo_ros_imu.so'>
+      <alwaysOn>1</alwaysOn>
+      <topicName>/my_robot/imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+      <bodyName>base_footprint</bodyName>
+      <xyzOffset>0 0 -0.01</xyzOffset>
+      <rpyOffset>0 -0 0</rpyOffset>
+    </plugin>
+  </model>
+<sdf>

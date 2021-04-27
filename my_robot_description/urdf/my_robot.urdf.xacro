@@ -1,35 +1,18 @@
 <?xml version="1.0"?>
-
-<!--
-	http://www.generationrobots.com/blog/en/2015/02/robotic-simulation-scenarios-with-gazebo-and-ros/#create your own robot model
-	
-	#######################################################
-
-    To run:
-    $ roslaunch my_robot_gazebo my_robot_world.launch paused:=true
-
-    $ rosrun turtlebot_teleop turtlebot_teleop_key /turtlebot_teleop/cmd_vel:=/my_robot/cmd_vel
-
--->
-
 <robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-	<!-- Robot constants and properties -->
-	<xacro:include filename="$(find my_robot_description)/urdf/my_robot_properties.xacro" />
-	<!-- Import Rviz colors -->
-	<xacro:include filename="$(find my_robot_description)/urdf/materials.xacro" />
-	<!-- Gazebo aspects of the robot -->
-	<xacro:include filename="$(find my_robot_description)/urdf/my_robot.gazebo" />
-	<!-- Inertia matrices -->
-	<xacro:include filename="$(find my_robot_description)/urdf/macros.xacro" />
+	<xacro:include filename="$(find my_robot_description)/urdf/my_robot_properties.urdf.xacro" />
+	<!-- <xacro:include filename="$(find my_robot_description)/urdf/materials.urdf.xacro" /> -->
+	<xacro:include filename="$(find my_robot_description)/urdf/my_robot.gazebo.xacro"/>
+	<!-- <xacro:include filename="$(find my_robot_description)/urdf/macros.urdf.xacro" /> -->
 	
 
 	<!-- Used for fixing robot to Gazebo 'chassis' -->
-	<link name="base_footprint" />
+	<link name="base_footprint"/>
 
 	<joint name="base_joint" type="fixed">
 		<parent link="base_footprint"/>
 		<child link="chassis"/>
+		<origin xyz="0.0 0.0 0.010" rpy="0 0 0"/>
 	</joint>
 
 
@@ -39,7 +22,7 @@
 			<origin xyz="0 0 ${wheelRadius}" 
 					rpy="0 0 0"/> 
 			<geometry> 
-				<mesh filename="package://my_robot_description/meshes/chassis.dae" />
+				<mesh filename="package://my_robot_description/meshes/chassis.dae"/>
 			</geometry> 
 		</collision>
 
@@ -47,7 +30,7 @@
 			<origin xyz="0 0 ${wheelRadius}" 
 					rpy="0 0 0"/> 
 			<geometry>  
-				<mesh filename="package://my_robot_description/meshes/chassis.dae" />
+				<mesh filename="package://my_robot_description/meshes/chassis.dae"/>
 			</geometry> 
 			<material name="red"/>
 		</visual>
@@ -78,7 +61,7 @@
 			<origin xyz="${casterOffsetX} 0 ${2*casterRadius}" 
 					rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://my_robot_description/meshes/caster_wheel.dae" />
+				<mesh filename="package://my_robot_description/meshes/caster_wheel.dae"/>
 	  		</geometry>
 		</collision>
 
@@ -86,9 +69,9 @@
 			<origin xyz="${casterOffsetX} 0 ${2*casterRadius}" 
 					rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://my_robot_description/meshes/caster_wheel.dae" />
+				<mesh filename="package://my_robot_description/meshes/caster_wheel.dae"/>
 			</geometry>
-			<material name="grey" />
+			<material name="grey"/>
 		</visual>
 
 		<inertial>
@@ -109,6 +92,5 @@
 
 
 	<!-- Sensor models -->
-	<xacro:include filename="$(find my_robot_description)/urdf/sensors.xacro" />
-
+	<!-- <xacro:include filename="$(find my_robot_description)/urdf/sensors.urdf.xacro"/> -->
 </robot>

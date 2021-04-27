@@ -5,7 +5,7 @@
 	-->
 
 	<arg name="paused" 
-		 default="false"/>
+		 default="true"/>
 
 	<arg name="use_sim_time" 
 		 default="true"/>
@@ -23,23 +23,18 @@
 		 default="$(find turtlebot3_gazebo)/worlds/empty.world"/>
 
 	<arg name="model" 
-  	   	 default="$(find my_robot_description)/urdf/my_robot.urdf.xacro"/>
+  	   	 default="$(find my_robot_description)/urdf/romi.urdf.xacro"/>
 
-	<arg name="x_pos" default="-2.0"/>
-  	<arg name="y_pos" default="-0.5"/>
-  	<arg name="z_pos" default="0.0"/>
+	<arg name="x_pos" default="0.0"/>
+  	<arg name="y_pos" default="0"/>
+  	<arg name="z_pos" default="0"/>
 
-	<!-- <arg name="rvizconfig" 
-  	   	 default="$(find my_robot_description)/rviz/my_robot.rviz" /> -->
-
-	<env name="GAZEBO_MODEL_PATH" 
-         value="$(find my_robot_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)"/>
 
 	<!-- 
 		Converts the xacro robot information to UDRF and use it as a robot_description parameter
 	-->
   	<param name="robot_description" 
-         command="$(find xacro)/xacro --inorder $(arg model)" />
+         command="$(find xacro)/xacro $(find my_robot_description)/urdf/romi.urdf.xacro" />
 
 	<!-- 
 		Launch Gazebo world 
@@ -61,7 +56,7 @@
 		  type="spawn_model" 
 		  respawn="false"
 		  output="screen"
- 		  args="-urdf -model my_robot -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+ 		  args="-urdf -model romi -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
  	<!-- 
  		Open Rviz 

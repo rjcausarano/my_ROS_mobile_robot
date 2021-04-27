@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot name="romi" xmlns:xacro="http://www.ros.org/wiki/xacro">	
+	<!-- Constants -->
+	<xacro:property name="PI" value="3.1415926535897931" />
+
+	<!-- Chassis properties -->
+	<xacro:property name="chassisHeight" value="0.0623"/>
+	<xacro:property name="chassisLength" value="0.198"/>
+	<xacro:property name="chassisWidth" value="0.119"/>
+	<xacro:property name="chassisMass" value="0.15"/>
+
+	<!-- Caster wheel properties -->
+	<xacro:property name="casterRadius" value="0.021"/>
+	<xacro:property name="casterMass" value="0.09"/>
+	<xacro:property name="casterOffsetX" value="0.091"/>
+
+	<!-- Differential-drive wheels properties -->
+	<xacro:property name="wheelWidth" value="0.026"/>
+	<xacro:property name="wheelRadius" value="0.032"/>
+	<xacro:property name="wheelMass" value="0.05"/>
+	<xacro:property name="wheelOffsetY" value="0.037"/>
+
+	<!-- Hokuyo laser properties -->
+	<xacro:property name="hokuyoMass" value="0.01"/>
+	<xacro:property name="hokuyoLength" value="0.05"/>
+	<xacro:property name="hokuyoWidth" value="0.05"/>
+	<xacro:property name="hokuyoHeight" value="0.07"/>
+	<xacro:property name="hokuyoOffsetX" value="0.035"/>
+	<!--xacro:property name="hokuyoOffsetX" value="0.05"/-->
+	<xacro:property name="hokuyoOffsetZ" value="0.1135"/>
+	<!--xacro:property name="hokuyoOffsetZ" value="0.1125"/-->
+
+	<!-- Camera properties -->
+	<xacro:property name="cameraLength" value="0.04"/>
+	<xacro:property name="cameraWidth" value="0.08"/>
+	<xacro:property name="cameraHeight" value="0.03"/>
+	<xacro:property name="cameraMass" value="0.01"/>
+	<xacro:property name="cameraOffsetX" value="0.095"/>
+	<xacro:property name="cameraOffsetZ" value="0.06"/>
+
+	<xacro:include filename="$(find my_robot_description)/urdf/romi.gazebo.xacro"/>
+
+	<!-- Used for fixing robot to Gazebo 'chassis' -->
+	<link name="base_footprint"/>
+
+	<joint name="base_joint" type="fixed">
+		<parent link="base_footprint"/>
+		<child link="base_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+	</joint>
+	<link name='base_link'>
+		<visual> 
+			<origin xyz="0 0 0" 
+					rpy="0 0 0"/> 
+			<geometry>  
+				<mesh filename="package://my_robot_description/meshes/chassis_romi.stl" scale="1 1 1"/>
+			</geometry> 
+			<material name="light_black"/>
+		</visual>
+		<collision> 
+			<origin xyz="0 0 0" 
+					rpy="0 0 0"/> 
+			<geometry> 
+				<mesh filename="package://my_robot_description/meshes/chassis_romi.stl" scale="1 1 1"/>
+			</geometry> 
+		</collision>
+		<inertial> 
+			<origin xyz="0 0 0" 
+					rpy="0 0 0"/> 
+			<mass value="1"/> 
+			<box_inertia 
+				m="1" 
+				x="1" 
+				y="1" 
+				z="1"/>
+		</inertial>
+	</link>
+</robot>

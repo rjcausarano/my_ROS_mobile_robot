@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="romi_gazebo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Chassis -->
+  <gazebo reference="base_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+
+</robot>
